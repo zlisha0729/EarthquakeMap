@@ -19,8 +19,7 @@ import processing.core.PApplet;
 
 /** EarthquakeCityMap
  * An application with an interactive map displaying earthquake data.
- * @author Your name here
- * */
+ */
 public class EarthquakeCityMap extends PApplet {
 	
 	//It's to get rid of eclipse warnings
@@ -53,17 +52,10 @@ public class EarthquakeCityMap extends PApplet {
 	public void setup() {		
 		// (1) Initializing canvas and map tiles
 		size(900, 700, OPENGL);
-		if (offline) {
-		    map = new UnfoldingMap(this, 200, 50, 650, 600, new MBTilesMapProvider(mbTilesString));
-		    earthquakesURL = "2.5_week.atom";  // The same feed, but saved August 7, 2015
-		}
-		else {
-			map = new UnfoldingMap(this, 200, 50, 650, 600, new Google.GoogleMapProvider());
-			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
-		    //earthquakesURL = "2.5_week.atom";
-		}
-		MapUtils.createDefaultEventDispatcher(this, map);
+	
+	    map = new UnfoldingMap(this, 200, 50, 650, 600, new Google.GoogleMapProvider());
 		
+		MapUtils.createDefaultEventDispatcher(this, map);
 		
 		
 		earthquakesURL = "result1.atom";
@@ -95,13 +87,9 @@ public class EarthquakeCityMap extends PApplet {
 		    quakeMarkers.add(new OceanQuakeMarker(feature));
 		  }
 	    }
-
-	    // could be used for debugging
 	    printQuakes();
 	 		
 	    // (3) Add markers to map
-	    //     NOTE: Country markers are not added to the map.  They are used
-	    //           for their geometric properties
 	    map.addMarkers(quakeMarkers);
 	    map.addMarkers(cityMarkers);
 	    
@@ -117,25 +105,7 @@ public class EarthquakeCityMap extends PApplet {
 	
 	// helper method to draw key in GUI
 	private void addKey() {	
-		fill(255, 250, 240);
-		rect(25, 50, 150, 250);
-		
-		fill(0);
-		textAlign(LEFT, CENTER);
-		textSize(12);
-		text("Earthquake Key", 50, 75);
-		
-		fill(color(255, 0, 0));
-		ellipse(50, 125, 15, 15);
-		fill(color(255, 255, 0));
-		ellipse(50, 175, 10, 10);
-		fill(color(0, 0, 255));
-		ellipse(50, 225, 5, 5);
-		
-		fill(0, 0, 0);
-		text("5.0+ Magnitude", 75, 125);
-		text("4.0+ Magnitude", 75, 175);
-		text("Below 4.0", 75, 225);
+	
 	}
 
 	
@@ -144,15 +114,47 @@ public class EarthquakeCityMap extends PApplet {
 	// "country" property of its PointFeature to the country where it occurred
 	// and returns true.  
 	private boolean isLand(PointFeature earthquake) {
-		
+
+		for (Marker country: countryMarkers){
+			if (isInCountry(earthquake, country))
+				return true;
+			}
+
+		// not inside any country
 		return false;
-	}
+		}
 	
-	
+	// helper method to visualize the statistics of quakes in each country
 	private void printQuakes() 
+
 	{
+		int sumLandCount = 0;
+		for (Marker countryMarker : countryMarkers) {
+			int landCount = 0;
+			for (Marker quake : quakeMarkers){
+				if (quake instanceof LandQuakeMarker){
+					if (countryMarker.getProperty("name").equals(quake.getProperty("country")))
+						landCount++;
+					}
+				}
+			sumLandCount += landCount;
+			if (landCount > 0)
+				System.out.println(countryMarker.getProperty("name") + ": " + landCount);
+			}
+		System.out.println("OCEAN QUAKES:" + (quakeMarkers.size() - sumLandCount));
+
+	// test
+
+	/*Marker country = countryMarkers.get(0);
+
+	System.out.println("countryMarkers' properties: " + country.getProperties());
+
+	Marker quake = quakeMarkers.get(0);
+
+	System.out.println("quakeMarkers' properties: " + quake.getProperties());
+
+	*/
 	}
-	
 	
 	
 	// helper method to test whether a given earthquake is in a given country
