@@ -1,14 +1,14 @@
 package quake;
 
 import de.fhpotsdam.unfolding.data.PointFeature;
-import de.fhpotsdam.unfolding.marker.SimplePointMarker;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 
 /** Implements a visual marker for earthquakes on an earthquake map
  * 
  *
  */
-public abstract class EarthquakeMarker extends SimplePointMarker
+public abstract class EarthquakeMarker extends CommonMarker
 {
 	
 	protected boolean isOnLand;
@@ -46,7 +46,8 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 	
 
 	// calls abstract method drawEarthquake and then checks age and draws X if needed
-	public void draw(PGraphics pg, float x, float y) {
+	@Override
+	public void drawMarker(PGraphics pg, float x, float y) {
 		// save previous styling
 		pg.pushStyle();
 			
@@ -70,13 +71,33 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 			pg.fill(255, 0, 0);
 	}
 	
+	/** Show the title of the earthquake if this marker is selected */
+	public void showTitle(PGraphics pg, float x, float y)
+	{
+		String title = getTitle();
+		pg.pushStyle();
+		
+		pg.rectMode(PConstants.CORNER);
+		
+		pg.stroke(110);
+		pg.fill(255,255,255);
+		pg.rect(x, y + 15, pg.textWidth(title) +6, 18, 5);
+		
+		pg.textAlign(PConstants.LEFT, PConstants.TOP);
+		pg.fill(0);
+		pg.text(title, x + 3 , y +18);
+		
+		
+		pg.popStyle();
+		
+	}
+
 	/*
 	 * getters for earthquake properties
 	 */
 	
 	public float getMagnitude() {
-		return Float.parseFloat(getProperty("magnitude").toString());
-	}
+		return Float.parseFloat(getProperty("magnitude").toString());}
 	
 	public float getDepth() {
 		return Float.parseFloat(getProperty("depth").toString());	
