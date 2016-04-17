@@ -14,9 +14,6 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 	protected boolean isOnLand;
 
 	// The radius of the Earthquake marker
-	// You will want to set this in the constructor, either
-	// using the thresholds below, or a continuous function
-	// based on magnitude. 
 	protected float radius;
 	
 	
@@ -60,6 +57,17 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 		// reset to previous styling
 		pg.popStyle();
 		
+	}
+	
+	// determine color of marker from depth
+	// Deep: red, intermediate: blue, shallow: yellow
+	private void colorDetermine(PGraphics pg) {
+		if (getDepth() <= 70 && getDepth() > 0)
+			pg.fill(255, 255, 0);
+		else if (getDepth() <= 300 && getDepth() > 70)
+			pg.fill(0, 0, 255);
+		else
+			pg.fill(255, 0, 0);
 	}
 	
 	/*
