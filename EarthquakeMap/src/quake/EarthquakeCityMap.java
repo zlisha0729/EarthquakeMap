@@ -43,6 +43,9 @@ public class EarthquakeCityMap extends PApplet {
 	// A List of country markers
 	private List<Marker> countryMarkers;
 	
+	private CommonMarker lastSelected;
+	private CommonMarker lastClicked;
+	
 	public void setup() {		
 		// (1) Initializing canvas and map tiles
 		size(900, 700, OPENGL);
@@ -94,6 +97,26 @@ public class EarthquakeCityMap extends PApplet {
 		background(0);
 		map.draw();
 		addKey();
+	}
+	
+	/** Event handler that gets called automatically when the 
+	 * mouse moves.
+	 */
+	@Override
+	public void mouseMoved()
+	{
+		// clear the last selection
+		if (lastSelected != null) {
+			lastSelected.setSelected(false);
+			lastSelected = null;
+		
+		}
+		selectMarkerIfHover(quakeMarkers);
+		selectMarkerIfHover(cityMarkers);
+	}
+	
+	private void selectMarkerIfHover(List<Marker> markers)
+	{
 		
 	}
 	
@@ -107,8 +130,8 @@ public class EarthquakeCityMap extends PApplet {
 	// Checks whether this quake occurred on land.  If it did, it sets the 
 	// "country" property of its PointFeature to the country where it occurred
 	// and returns true.  
-	private boolean isLand(PointFeature earthquake) {
-
+	private boolean isLand(PointFeature earthquake) 
+	{
 		for (Marker country: countryMarkers){
 			if (isInCountry(earthquake, country))
 				return true;
@@ -120,7 +143,6 @@ public class EarthquakeCityMap extends PApplet {
 	
 	// helper method to visualize the statistics of quakes in each country
 	private void printQuakes() 
-
 	{
 		int sumLandCount = 0;
 		for (Marker countryMarker : countryMarkers) {
