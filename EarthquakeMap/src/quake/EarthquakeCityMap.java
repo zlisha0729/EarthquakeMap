@@ -108,8 +108,7 @@ public class EarthquakeCityMap extends PApplet {
 		// clear the last selection
 		if (lastSelected != null) {
 			lastSelected.setSelected(false);
-			lastSelected = null;
-		
+			lastSelected = null;	
 		}
 		selectMarkerIfHover(quakeMarkers);
 		selectMarkerIfHover(cityMarkers);
@@ -122,7 +121,17 @@ public class EarthquakeCityMap extends PApplet {
 	
 	// helper method to draw key in GUI
 	private void addKey() {	
-	
+		fill(255, 250, 240);
+		
+		int xbase = 25;
+		int ybase = 50;
+		
+		rect(xbase, ybase, 150, 250);
+		
+		fill(0);
+		textAlign(LEFT, CENTER);
+		textSize(12);
+		text("Earthquake Key", xbase+25, ybase+25);
 	}
 
 	
