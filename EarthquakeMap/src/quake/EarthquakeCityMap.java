@@ -142,6 +142,14 @@ public class EarthquakeCityMap extends PApplet {
 		textAlign(LEFT, CENTER);
 		textSize(12);
 		text("Earthquake Key", xbase+25, ybase+25);
+		
+		fill(150, 30, 30);
+		int tri_xbase = xbase + 35;
+		int tri_ybase = ybase + 50;
+		triangle(tri_xbase, tri_ybase-CityMarker.TRI_SIZE, tri_xbase-CityMarker.TRI_SIZE, 
+				tri_ybase+CityMarker.TRI_SIZE, tri_xbase+CityMarker.TRI_SIZE, 
+				tri_ybase+CityMarker.TRI_SIZE);
+
 	}
 
 	
