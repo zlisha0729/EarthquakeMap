@@ -51,6 +51,8 @@ public abstract class EarthquakeMarker extends CommonMarker
 		// save previous styling
 		pg.pushStyle();
 			
+		colorDetermine(pg);
+		
 		// call abstract method implemented in child class to draw marker shape
 		drawEarthquake(pg, x, y);
 			
