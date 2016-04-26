@@ -119,6 +119,16 @@ public class EarthquakeCityMap extends PApplet {
 		
 	}
 	
+	private void unhideMarkers() {
+		for(Marker marker : quakeMarkers) {
+			marker.setHidden(false);
+		}
+			
+		for(Marker marker : cityMarkers) {
+			marker.setHidden(false);
+		}
+	}
+	
 	// helper method to draw key in GUI
 	private void addKey() {	
 		fill(255, 250, 240);
