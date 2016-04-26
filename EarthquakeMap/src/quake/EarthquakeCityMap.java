@@ -116,7 +116,19 @@ public class EarthquakeCityMap extends PApplet {
 	
 	private void selectMarkerIfHover(List<Marker> markers)
 	{
-		
+		boolean found = false;
+
+	    for (Marker marker : markers){
+	    	if (!found) {
+	    		if (lastSelected == null && marker.isInside(map, mouseX, mouseY)) {
+	    			lastSelected = (CommonMarker) marker;
+	    			lastSelected.setSelected(true);
+	    			found = true;
+	    		}
+	    else
+	    	found = false;
+	    	}	
+	    }
 	}
 	
 	private void unhideMarkers() {
