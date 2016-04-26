@@ -149,6 +149,14 @@ public class EarthquakeCityMap extends PApplet {
 		triangle(tri_xbase, tri_ybase-CityMarker.TRI_SIZE, tri_xbase-CityMarker.TRI_SIZE, 
 				tri_ybase+CityMarker.TRI_SIZE, tri_xbase+CityMarker.TRI_SIZE, 
 				tri_ybase+CityMarker.TRI_SIZE);
+		
+		fill(0, 0, 0);
+		textAlign(LEFT, CENTER);
+		text("City Marker", tri_xbase + 15, tri_ybase);
+		
+		text("Land Quake", xbase+50, ybase+70);
+		text("Ocean Quake", xbase+50, ybase+90);
+		text("Size ~ Magnitude", xbase+25, ybase+110);
 
 	}
 
