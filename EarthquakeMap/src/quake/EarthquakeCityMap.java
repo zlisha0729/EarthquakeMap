@@ -141,6 +141,34 @@ public class EarthquakeCityMap extends PApplet {
 		}
 	}
 	
+	/** The event handler for mouse clicks
+
+	* It will display an earthquake and its threat circle of cities
+
+	* Or if a city is clicked, it will display all the earthquakes 
+
+	* where the city is in the threat circle
+
+	*/
+
+	@Override
+
+	public void mouseClicked(){
+	if (lastClicked != null) {
+		unhideMarkers();
+		lastClicked = null;
+	}
+	else {
+		earthquakeMarkerClicked();
+	    if (lastClicked == null)
+	    cityMarkerClicked();
+	}
+
+
+
+
+	}
+	
 	// helper method to draw key in GUI
 	private void addKey() {	
 		fill(255, 250, 240);
