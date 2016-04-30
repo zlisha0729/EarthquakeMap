@@ -163,12 +163,16 @@ public class EarthquakeCityMap extends PApplet {
 	    if (lastClicked == null)
 	    cityMarkerClicked();
 	}
-
-
-
-
+}
+	
+	private void earthquakeMarkerClicked() {
+		
+		
 	}
 	
+	private void cityMarkerClicked() {
+		
+	}
 	// helper method to draw key in GUI
 	private void addKey() {	
 		fill(255, 250, 240);
