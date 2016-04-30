@@ -16,7 +16,7 @@ public abstract class EarthquakeMarker extends CommonMarker
 	// The radius of the Earthquake marker
 	protected float radius;
 	
-	
+	protected static final float kmPerMile = 1.6f;
 	/** Greater than or equal to this threshold is a moderate earthquake */
 	public static final float THRESHOLD_MODERATE = 5;
 	/** Greater than or equal to this threshold is a light earthquake */
@@ -92,6 +92,12 @@ public abstract class EarthquakeMarker extends CommonMarker
 		
 		pg.popStyle();
 		
+	}
+	
+	public double threatCircle() {	
+		double miles = 20.0f * Math.pow(1.8, 2*getMagnitude()-5);
+		double km = (miles * kmPerMile);
+		return km;
 	}
 
 	/*
