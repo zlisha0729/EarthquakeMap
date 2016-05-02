@@ -192,8 +192,25 @@ public class EarthquakeCityMap extends PApplet {
 	}
 	
 	private void cityMarkerClicked() {
-		
+		for (Marker cityMarker: cityMarkers) {
+			//EarthquakeMarker earthquakeMarker = (EarthquakeMarker) earthquake;
+			if (cityMarker.isInside(map, mouseX, mouseY)) {
+				for (Marker temp : quakeMarkers) {
+					if (cityMarker.getDistanceTo(temp.getLocation()) <= ((EarthquakeMarker) temp).threatCircle()) {
+						temp.setHidden(false);
+			        }
+					else
+						temp.setHidden(true);
+				}//end for
+				for (Marker temp2 : cityMarkers) {
+					temp2.setHidden(true);
+				}//end for
+				lastClicked = (CommonMarker) cityMarker;
+				cityMarker.setHidden(false);
+			}// end if
+		}// end for
 	}
+	
 	// helper method to draw key in GUI
 	private void addKey() {	
 		fill(255, 250, 240);
