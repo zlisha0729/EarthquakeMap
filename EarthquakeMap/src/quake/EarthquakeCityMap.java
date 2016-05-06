@@ -170,10 +170,10 @@ public class EarthquakeCityMap extends PApplet {
 			EarthquakeMarker earthquakeMarker = (EarthquakeMarker) earthquake;
 			if (earthquakeMarker.isInside(map, mouseX, mouseY)) {
 				for (Marker temp : quakeMarkers) {
-					if (earthquakeMarker.getDistanceTo(temp.getLocation()) <= earthquakeMarker.threatCircle()) {
+					/*if (earthquakeMarker.getDistanceTo(temp.getLocation()) <= earthquakeMarker.threatCircle()) {
 						temp.setHidden(false);
 					}
-					else
+					else*/
 						temp.setHidden(true);
 				}//end for
 
@@ -185,6 +185,7 @@ public class EarthquakeCityMap extends PApplet {
 						temp2.setHidden(true);
 				}//end for
 				lastClicked = earthquakeMarker;
+				earthquake.setHidden(false);
 
 			}// end if
 
