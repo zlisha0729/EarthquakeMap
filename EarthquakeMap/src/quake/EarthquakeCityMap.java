@@ -260,7 +260,12 @@ public class EarthquakeCityMap extends PApplet {
 		fill(color(255, 0, 0));
 		ellipse(xbase+35, ybase+180, 12, 12);
 		
-
+		textAlign(LEFT, CENTER);
+		fill(0, 0, 0);
+		text("Shallow", xbase+50, ybase+140);
+		text("Intermediate", xbase+50, ybase+160);
+		text("Deep", xbase+50, ybase+180);
+		
 	}
 
 	
