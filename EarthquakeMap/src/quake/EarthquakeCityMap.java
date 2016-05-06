@@ -2,6 +2,7 @@ package quake;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -46,6 +47,10 @@ public class EarthquakeCityMap extends PApplet {
 	private CommonMarker lastSelected;
 	private CommonMarker lastClicked;
 	
+	// HashMap new defining to see the country name associated with the number of earthquakes
+	// in the country
+	private HashMap<String, Integer> dangerMap;
+	
 	public void setup() {		
 		// (1) Initializing canvas and map tiles
 		size(900, 700, OPENGL);
@@ -62,6 +67,7 @@ public class EarthquakeCityMap extends PApplet {
 	    //     STEP 1: load country features and markers
 		List<Feature> countries = GeoJSONReader.loadData(this, countryFile);
 		countryMarkers = MapUtils.createSimpleMarkers(countries);
+		map.addMarkers(countryMarkers);
 		
 		//     STEP 2: read in city data
 		List<Feature> cities = GeoJSONReader.loadData(this, cityFile);
@@ -84,11 +90,13 @@ public class EarthquakeCityMap extends PApplet {
 		    quakeMarkers.add(new OceanQuakeMarker(feature));
 		  }
 	    }
-	    printQuakes();
+	    dangerMap = printQuakes();
+	    shadeCountries();
 	 		
 	    // (3) Add markers to map
 	    map.addMarkers(quakeMarkers);
 	    map.addMarkers(cityMarkers);
+	    
 	    
 	}  // End setup
 	
@@ -260,10 +268,12 @@ public class EarthquakeCityMap extends PApplet {
 		}
 	
 	// helper method to visualize the statistics of quakes in each country
-	private void printQuakes() 
+	private HashMap<String, Integer> printQuakes() 
 	{
+		HashMap<String, Integer> dangerMap = new HashMap<String, Integer>();
 		int sumLandCount = 0;
 		for (Marker countryMarker : countryMarkers) {
+			String countryName = countryMarker.getStringProperty("name");
 			int landCount = 0;
 			for (Marker quake : quakeMarkers){
 				if (quake instanceof LandQuakeMarker){
@@ -272,11 +282,13 @@ public class EarthquakeCityMap extends PApplet {
 					}
 				}
 			sumLandCount += landCount;
-			if (landCount > 0)
+			if (landCount > 0) {
+				dangerMap.put(countryName, landCount);
 				System.out.println(countryMarker.getProperty("name") + ": " + landCount);
 			}
+		}
 		System.out.println("OCEAN QUAKES:" + (quakeMarkers.size() - sumLandCount));
-
+		return dangerMap;
 	// test
 
 	/*Marker country = countryMarkers.get(0);
@@ -290,6 +302,29 @@ public class EarthquakeCityMap extends PApplet {
 	*/
 	}
 	
+	private void shadeCountries() {
+		for (Marker marker : countryMarkers) {
+		// Find data for country of the current marker
+		//String countryId = marker.getId();
+		String name = marker.getStringProperty("name");
+		//System.out.println(countryId);
+		//System.out.println(marker.getStringProperty("name"));
+			if (dangerMap.containsKey(name)) {
+				int num = dangerMap.get(name);
+				//System.out.println("number of quakes: " + num);
+				// Encode value as brightness (values range: 40-90)
+				int colorLevel = (int) map(num, 1, 20, 10, 255);
+				System.out.println("colorlevel = " + colorLevel);
+				marker.setColor(color(255-colorLevel, 100, colorLevel));
+			}
+			else {
+				marker.setColor(color(150,150,150));
+			}
+		}
+
+	}
+
+
 	
 	// helper method to test whether a given earthquake is in a given country
 	// This will also add the country property to the properties of the earthquake 
