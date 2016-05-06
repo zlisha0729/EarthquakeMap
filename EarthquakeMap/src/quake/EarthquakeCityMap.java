@@ -248,6 +248,11 @@ public class EarthquakeCityMap extends PApplet {
 		text("Land Quake", xbase+50, ybase+70);
 		text("Ocean Quake", xbase+50, ybase+90);
 		text("Size ~ Magnitude", xbase+25, ybase+110);
+		
+		fill(255, 255, 255);
+		ellipse(xbase+35, ybase+70, 10, 10);
+		rect(xbase+35-5, ybase+90-5, 10, 10);
+		
 
 	}
 
