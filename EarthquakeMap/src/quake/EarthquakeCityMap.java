@@ -253,6 +253,13 @@ public class EarthquakeCityMap extends PApplet {
 		ellipse(xbase+35, ybase+70, 10, 10);
 		rect(xbase+35-5, ybase+90-5, 10, 10);
 		
+		fill(color(255, 255, 0));
+		ellipse(xbase+35, ybase+140, 12, 12);
+		fill(color(0, 0, 255));
+		ellipse(xbase+35, ybase+160, 12, 12);
+		fill(color(255, 0, 0));
+		ellipse(xbase+35, ybase+180, 12, 12);
+		
 
 	}
 
