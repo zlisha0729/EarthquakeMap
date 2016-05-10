@@ -11,7 +11,6 @@ import processing.core.PGraphics;
 public abstract class EarthquakeMarker extends CommonMarker
 {
 	
-	protected boolean isOnLand;
 
 	// The radius of the Earthquake marker
 	protected float radius;
@@ -120,10 +119,6 @@ public abstract class EarthquakeMarker extends CommonMarker
 		return Float.parseFloat(getProperty("radius").toString());
 	}
 	
-	public boolean isOnLand()
-	{
-		return isOnLand;
-	}
 	
 	
 }

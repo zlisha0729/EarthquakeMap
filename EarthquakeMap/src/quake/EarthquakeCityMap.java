@@ -13,7 +13,7 @@ import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.providers.Google;
-import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
+//import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import parsing.ParseFeed;
 import processing.core.PApplet;
@@ -59,7 +59,7 @@ public class EarthquakeCityMap extends PApplet {
 		
 		MapUtils.createDefaultEventDispatcher(this, map);
 		
-		
+		// local file for earthquake data
 		earthquakesURL = "result1.atom";
 		
 		
@@ -67,7 +67,7 @@ public class EarthquakeCityMap extends PApplet {
 	    //     STEP 1: load country features and markers
 		List<Feature> countries = GeoJSONReader.loadData(this, countryFile);
 		countryMarkers = MapUtils.createSimpleMarkers(countries);
-		map.addMarkers(countryMarkers);
+		map.addMarkers(countryMarkers);  // add country markers to map
 		
 		//     STEP 2: read in city data
 		List<Feature> cities = GeoJSONReader.loadData(this, cityFile);

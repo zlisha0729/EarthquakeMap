@@ -6,9 +6,6 @@ import processing.core.PGraphics;
 
 
 public abstract class CommonMarker extends SimplePointMarker {
-
-	// Records whether this marker has been clicked (most recently)
-	protected boolean clicked = false;
 	
 	public CommonMarker(Location location) {
 		super(location);
@@ -18,16 +15,7 @@ public abstract class CommonMarker extends SimplePointMarker {
 		super(location, properties);
 	}
 	
-	// Getter method for clicked field
-	public boolean getClicked() {
-		return clicked;
-	}
-	
-	// Setter method for clicked field
-	public void setClicked(boolean state) {
-		clicked = state;
-	}
-	
+
 	// Common piece of drawing method for markers; 
 	public void draw(PGraphics pg, float x, float y) {
 		// For starter code just drawMaker(...)

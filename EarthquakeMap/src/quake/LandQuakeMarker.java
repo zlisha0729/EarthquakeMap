@@ -11,8 +11,6 @@ public class LandQuakeMarker extends EarthquakeMarker {
 		// calling EarthquakeMarker constructor
 		super(quake);
 		
-		// setting field in earthquake marker
-		isOnLand = true;
 	}
 
 
